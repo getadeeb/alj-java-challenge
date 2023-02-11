@@ -14,7 +14,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
+    - name: Build and test
       run: DOCKER_BUILDKIT=1  docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-    - name: Run Tests
-      run: DOCKER_BUILDKIT=1  docker build -t java-docker --target test .
