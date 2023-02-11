@@ -17,4 +17,4 @@ jobs:
     - name: Build the Docker image
       run: DOCKER_BUILDKIT=1  docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     - name: Run Tests
-      run: DOCKER_BUILDKIT=1  docker test . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: DOCKER_BUILDKIT=1  docker build -t java-docker --target test .
