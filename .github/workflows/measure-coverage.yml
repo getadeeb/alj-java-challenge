@@ -1,10 +1,8 @@
 name: Measure coverage
 
-  push:
-    branches: [ "master" ]
+on:
   pull_request:
-    branches: [ "master" ]
-
+  push:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,3 +24,4 @@ jobs:
           paths: ${{ github.workspace }}/build/reports/jacoco/testCoverage/testCoverage.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 40
+          min-coverage-changed-files: 60
