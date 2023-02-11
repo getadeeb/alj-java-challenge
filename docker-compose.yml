@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  employee-api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: build
+    environment:
+      JDBC_URL : jdbc:h2:mem:testdb
+    command: ["sh","-c","cd /workspace/app && ./mvnw spring-boot:run"]
+    ports:
+      - "8080:8080"
