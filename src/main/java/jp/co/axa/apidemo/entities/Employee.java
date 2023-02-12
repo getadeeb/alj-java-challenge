@@ -1,17 +1,27 @@
 package jp.co.axa.apidemo.entities;
 
-import lombok.Getter;
-import lombok.Setter;
-
+import java.time.ZonedDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
-@Table(name="EMPLOYEE")
+@Table(name = "employees")
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Employee {
 
     @Getter
@@ -22,17 +32,29 @@ public class Employee {
 
     @Getter
     @Setter
-    @Column(name="EMPLOYEE_NAME")
     private String name;
 
     @Getter
     @Setter
-    @Column(name="EMPLOYEE_SALARY")
     private Integer salary;
 
     @Getter
     @Setter
-    @Column(name="DEPARTMENT")
-    private String department;
+    private Department department;
 
+    public enum Department {
+        PRODUCT,
+        TECHNOLOGY,
+        SALES,
+        MARKETING,
+        FINANCE,
+        ACCOUNTING,
+        RESEARCH
+    }
+
+    @CreatedDate
+    private ZonedDateTime createdAt;
+
+    @LastModifiedDate
+    private ZonedDateTime updatedAt;
 }

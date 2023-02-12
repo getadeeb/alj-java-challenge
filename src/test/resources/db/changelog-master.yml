@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: db/migration/000-create-employee-table.yml
