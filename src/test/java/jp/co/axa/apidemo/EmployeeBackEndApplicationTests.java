@@ -16,8 +16,8 @@ import jp.co.axa.apidemo.entities.Employee;
 import jp.co.axa.apidemo.entities.Employee.Department;
 import jp.co.axa.apidemo.repositories.EmployeeRepository;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+/*import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;*/
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -96,14 +96,14 @@ public class EmployeeBackEndApplicationTests {
 		);
 	}
 
-	@BeforeEach
+/*	@BeforeEach*/
 	void setupDB() {
 		employeeRepository.deleteAll();
 		employeeRepository.flush();
 	}
 
 	@Test
-	@DisplayName("Create Fails Invalid Parameters Passed")
+	/*Create Fails Invalid Parameters Passed*/
 	public void createFailsOnInvalidParameters() throws Exception {
 		String param = createEmployeeParam("INVALID_NAME_123",
 				"TECHNOLOGY", -5);
@@ -125,7 +125,7 @@ public class EmployeeBackEndApplicationTests {
 	}
 
 	@Test
-	@DisplayName("Create succeeds on Valid parameters")
+	/*Create succeeds on Valid parameters*/
 	public void createSucceedsOnValidParameters() throws Exception {
 		String param = createEmployeeParam("EMPLOYEE NAME", "PRODUCT", 5000);
 		MockHttpServletRequestBuilder request = requestForCreate(param);
@@ -137,7 +137,7 @@ public class EmployeeBackEndApplicationTests {
 	}
 
 	@Test
-	@DisplayName("Update fails on invalid parameters")
+	/*Update fails on invalid parameters*/
 	public void updateFailsOnInvalidParameters() throws Exception {
 		String param = createEmployeeParam("EMPLOYEE NAME", "PRODUCT", 5000);
 		MockHttpServletRequestBuilder request = requestForCreate(param);
@@ -163,7 +163,7 @@ public class EmployeeBackEndApplicationTests {
 	}
 
 	@Test
-	@DisplayName("Update fails on invalid id")
+	/*Update fails on invalid id*/
 	public void updateFailsOnInvalidId() throws Exception {
 
 		String updateParamTwo = createEmployeeParam("VALID NAME", "TECHNOLOGY", 5000);
@@ -176,7 +176,7 @@ public class EmployeeBackEndApplicationTests {
 	}
 
 	@Test
-	@DisplayName("Update succeeds on valid parameters")
+	/*Update succeeds on valid parameters*/
 	public void updateSucceedsOnValidParameters() throws Exception {
 		setupDB();
 		createEmployee("VALID EMPLOYEE", 5000, Department.PRODUCT.name(), 3L);
@@ -194,7 +194,7 @@ public class EmployeeBackEndApplicationTests {
 	}
 
 	@Test
-	@DisplayName("succeeds on listing employees")
+	/*succeeds on listing employees*/
 	public void succeedsListEmployees() throws Exception {
 		setupDB();
 		createEmployee("VALID EMPLOYEE", 5000, Department.PRODUCT.name(), 5L);
@@ -215,7 +215,7 @@ public class EmployeeBackEndApplicationTests {
 
 
 	@Test
-	@DisplayName("Succeeds on getting single employee")
+	/*Succeeds on getting single employee*/
 	public void succeedsOnGettingOneEmployee() throws Exception {
 		setupDB();
 		createEmployee("VALID EMPLOYEE", 5000, Department.PRODUCT.name(), 1L);
@@ -228,7 +228,7 @@ public class EmployeeBackEndApplicationTests {
 	}
 
 	@Test
-	@DisplayName("Fails on getting single employee with invalid id")
+	/*Fails on getting single employee with invalid id*/
 	public void failsOnGettingEmployeeWithInvalidId() throws Exception {
 		MockHttpServletRequestBuilder request = requestForGet("200");
 		mockMvc.perform(request).andExpect(status().isNotFound())
@@ -236,7 +236,7 @@ public class EmployeeBackEndApplicationTests {
 	}
 
 	@Test
-	@DisplayName("Succeeds on deletion of employee with valid id")
+	/*Succeeds on deletion of employee with valid id*/
 	public void succeedsOnDeletionValidId() throws Exception {
 		createEmployee("VALID EMPLOYEE", 5000, Department.PRODUCT.name(), 1L);
 		createEmployee("VALID ANOTHER EMPLOYEE", 6000, Department.RESEARCH.name(), 2L);
@@ -250,7 +250,7 @@ public class EmployeeBackEndApplicationTests {
 	}
 
 	@Test
-	@DisplayName("Fails on deletion of employee with invalid employee Id")
+	/*Fails on deletion of employee with invalid employee Id*/
 	public void failsOnDeletionInvalidId() throws Exception {
 		MockHttpServletRequestBuilder request = requestForDelete("200");
 		mockMvc.perform(request).andExpect(status().isUnprocessableEntity())
