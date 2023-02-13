@@ -22,23 +22,39 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
+    /*
+    * Retrieving employees will first look in the cache ,
+    * if not found, it will taken from db and update the cache
+    * */
     @Cacheable("employees")
     public Page<Employee> retrieveEmployees(PageRequest paging) {
         return employeeRepository.findAll(paging);
     }
 
+    /*
+    * First look into the cache and if
+    * not found fetch from db and update the cache
+    * */
     @Cacheable("employee")
     public Employee getEmployee(Long employeeId) {
         return employeeRepository.findById(employeeId).orElseThrow(
             EntityNotFoundException::new);
     }
 
+    /*
+    * 1. If new employee is added , the list employees cache will be cleared
+    * 2. new employee will be added to the single employee cache
+    * */
     @CacheEvict(value = "employees", allEntries = true)
     @Cacheable("employee")
     public Employee saveEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
 
+    /*
+    * 1. if an employee is deleted the list employee cache will be cleared
+    * 2. individual employee info from the cache will be also deleted
+    * */
     @Caching(evict = {
         @CacheEvict(value = "employees", allEntries = true),
         @CacheEvict(value = "employee", key = "#employeeId")})
@@ -48,6 +64,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
+    /*
+    * 1. if an employee is updated employees cache will be updated
+    * 2. individual employee cache will also get updated
+    * */
     @Caching(
         put = {
             @CachePut(value = "employees"),

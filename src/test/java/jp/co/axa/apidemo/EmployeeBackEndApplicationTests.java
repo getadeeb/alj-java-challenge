@@ -16,8 +16,6 @@ import jp.co.axa.apidemo.entities.Employee;
 import jp.co.axa.apidemo.entities.Employee.Department;
 import jp.co.axa.apidemo.repositories.EmployeeRepository;
 import org.junit.Test;
-/*import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;*/
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
