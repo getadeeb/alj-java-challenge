@@ -8,6 +8,8 @@ services:
       target: build
     environment:
       JDBC_URL : jdbc:h2:mem:testdb
+      API_USERNAME: username
+      API_PASSWORD: password
     command: ["sh","-c","cd /workspace/app && ./mvnw spring-boot:run"]
     ports:
       - "8080:8080"
