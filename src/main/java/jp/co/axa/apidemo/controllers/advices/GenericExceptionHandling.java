@@ -1,7 +1,10 @@
 package jp.co.axa.apidemo.controllers.advices;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -36,7 +39,10 @@ public class GenericExceptionHandling {
       }
       errorMessageViewList.add(ErrorMessageView.from(errorCode, errorMessage.getMessage()));
     }
-    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errorMessageViewList);
+    Collections.sort(errorMessageViewList,
+        Comparator.comparing(ErrorMessageView::getErrorCode));
+    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+        .body(errorMessageViewList);
   }
 
   @SneakyThrows
@@ -48,6 +54,8 @@ public class GenericExceptionHandling {
       errorMessageViewList.add(
           ErrorMessageView.from(fieldError.getField(), fieldError.getDefaultMessage()));
     }
+    Collections.sort(errorMessageViewList,
+        Comparator.comparing(ErrorMessageView::getErrorCode));
     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errorMessageViewList);
   }
 
@@ -61,6 +69,8 @@ public class GenericExceptionHandling {
           ErrorMessageView.from(fieldError.getCode(), fieldError.getField())
       );
     }
+    Collections.sort(errorMessageViewList,
+        Comparator.comparing(ErrorMessageView::getErrorCode));
     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errorMessageViewList);
   }
 }

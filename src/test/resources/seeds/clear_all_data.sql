@@ -1,1 +1,1 @@
-TRUNCATE TABLE employee;
+TRUNCATE TABLE employees;
